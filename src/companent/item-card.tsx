@@ -3,12 +3,13 @@ import { useDispatch } from 'react-redux';
 import { deleteTodo, editTodo } from './model/todo-slice';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { TodoItem } from './type';
-
+import { ConfirmationModal } from './modal';
 
 export const ItemCard: React.FC<{ item: TodoItem }> = ({ item }) => {
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = React.useState(false);
   const [editText, setEditText] = React.useState(item.text);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = React.useState(false);
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -22,6 +23,19 @@ export const ItemCard: React.FC<{ item: TodoItem }> = ({ item }) => {
   const handleCancel = () => {
     setEditText(item.text);
     setIsEditing(false);
+  };
+
+  const handleDeleteOpen = () => {
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleDeleteClose = () => {
+    setIsDeleteModalOpen(false);
+  };
+
+  const handleDeleteConfirm = () => {
+    dispatch(deleteTodo(item.id));
+    setIsDeleteModalOpen(false);
   };
 
   return (
@@ -48,12 +62,7 @@ export const ItemCard: React.FC<{ item: TodoItem }> = ({ item }) => {
         )}
       </Box>
       <Box>
-        <Button
-          onClick={() => dispatch(deleteTodo(item.id))}
-          size='small'
-          variant='contained'
-          color='error'
-        >
+        <Button onClick={handleDeleteOpen} size='small' variant='contained' color='error'>
           Удалить
         </Button>
         {!isEditing && (
@@ -62,6 +71,12 @@ export const ItemCard: React.FC<{ item: TodoItem }> = ({ item }) => {
           </Button>
         )}
       </Box>
+      <ConfirmationModal
+        open={isDeleteModalOpen}
+        onClose={handleDeleteClose}
+        onConfirm={handleDeleteConfirm}
+        message={`Вы уверены, что хотите удалить задачу "${item.text}"?`}
+      />
     </Box>
   );
 };

@@ -6,9 +6,8 @@ import ReactPaginate from 'react-paginate';
 import styles from './list-card.module.scss';
 import { ListCard } from '../list-card';
 
-const pageSize = 10;
-
 export const ListWrapper = () => {
+  const pageSize = 3;
   const todos = useSelector((state: any) => state.persistedReducer.todos) as TodoItem[];
   const [currentPage, setCurrentPage] = React.useState(0);
   const totalPages = Math.ceil(todos?.length / pageSize);

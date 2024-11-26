@@ -1,4 +1,4 @@
-import { FormWrapper } from './layout/from-wrapper';
+import { FormWrapper } from './hoc/from-wrapper';
 import { FromAdd } from './companent/add-form';
 import { ListWrapper } from './companent/list-wrapper/list-wrapper';
 
