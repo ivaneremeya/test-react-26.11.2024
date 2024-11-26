@@ -23,7 +23,7 @@
 ## Установка
 
 1. Клонируйте репозиторий:
-   git clone
+   git clone https://github.com/ivaneremeya/test-react-26.11.2024.git
 
 2. Перейдите в директорию проекта:
    cd testTask
